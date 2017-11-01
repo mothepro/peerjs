@@ -39,18 +39,6 @@ describe('util', function() {
     });
   });
 
-  describe('.pack', function() {
-    it('should be BinaryPack\'s `pack` function', function() {
-      expect(util.pack).to.be.equal(BinaryPack.pack);
-    });
-  });
-
-  describe('.unpack', function() {
-    it('should be BinaryPack\'s `unpack` function', function() {
-      expect(util.unpack).to.be.equal(BinaryPack.unpack);
-    });
-  });
-
   // FF no like
   describe('.log', function() {
     it('should log with the PeerJS prefix', function(done) {

@@ -22,7 +22,6 @@
     "mocha": "*"
   },
   "dependencies": {
-    "js-binarypack": "0.0.9",
     "reliable": "git+https://github.com/michelle/reliable.git"
   }
 }
