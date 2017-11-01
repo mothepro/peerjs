@@ -13,7 +13,6 @@
     "prepublish": "./node_modules/.bin/grunt"
   },
   "devDependencies": {
-    "@types/webrtc": "*",
     "expect.js": "*",
     "grunt": "^0.4.5",
     "grunt-browserify": "^3.0.1",

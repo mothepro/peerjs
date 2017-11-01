@@ -2,7 +2,8 @@
 // Original definitions by Toshiya Nakakura <https://github.com/nakakura>
 // at https://github.com/DefinitelyTyped/DefinitelyTyped
 
-/// <reference types="webrtc" />
+type RTCPeerConnectionConfig = any
+type RTCDataChannel = any
 
 export = Peer;
 
