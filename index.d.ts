@@ -127,6 +127,10 @@ declare class Peer {
      * true if this peer and all of its connections can no longer be used.
      */
     destroyed: boolean;
+    /**
+     * Add static method to load proper modules to use in node environment.
+     */
+    static useInNode(): void;
 }
 
 declare namespace Peer {
