@@ -19,12 +19,6 @@ declare class Peer {
     constructor(id: Peer.peerID, options?: Peer.PeerJSOption);
 
     /**
-     * A peer can connect to other peers and listen for connections.
-     * @param options for specifying details about PeerServer
-     */
-    constructor(options: Peer.PeerJSOption);
-
-    /**
      *
      * @param id The brokering ID of the remote peer (their peer.id).
      * @param options for specifying details about Peer Connection
