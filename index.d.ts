@@ -121,15 +121,12 @@ declare class Peer {
      * true if this peer and all of its connections can no longer be used.
      */
     destroyed: boolean;
-    /**
-     * Add static method to load proper modules to use in node environment.
-     */
-    static useInNode(): void;
 }
 
 declare namespace Peer {
     export type peerID = string
     export type dcID = string
+
 
     interface PeerJSOption{
         key?: peerID;
@@ -197,4 +194,9 @@ declare namespace Peer {
         browser: string;
         supports: utilSupportsObj;
     }
+}
+
+// PeerJS Errors often add a type member
+interface Error {
+    type?: string;
 }
