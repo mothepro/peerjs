@@ -2,12 +2,19 @@
 // Original definitions by Toshiya Nakakura <https://github.com/nakakura>
 // at https://github.com/DefinitelyTyped/DefinitelyTyped
 
+import EventEmitter from 'typed-event-emitter-2'
+
 type RTCPeerConnectionConfig = any
 type RTCDataChannel = any
 
 export = Peer;
 
-declare class Peer {
+declare class Peer extends EventEmitter<'close' | 'disconnected', {
+    open: string
+    connection: Peer.DataConnection
+    call: Peer.MediaConnection
+    error: Error
+}> {
     prototype: RTCIceServer;
 
     /**
@@ -31,55 +38,6 @@ declare class Peer {
      * @param options Metadata associated with the connection, passed in by whoever initiated the connection.
      */
     call(id: string, stream: any, options?: any): Peer.MediaConnection;
-    /**
-     * Calls the remote peer specified by id and returns a media connection.
-     * @param event Event name
-     * @param cb Callback Function
-     */
-    on(event: string, cb: ()=>void): void;
-    /**
-     * Emitted when a connection to the PeerServer is established.
-     * @param event Event name
-     * @param cb id is the brokering ID of the peer
-     */
-    on(event: 'open', cb: (id: string)=>void): void;
-    /**
-     * Emitted when a new data connection is established from a remote peer.
-     * @param event Event name
-     * @param cb Callback Function
-     */
-    on(event: 'connection', cb: (dataConnection: Peer.DataConnection)=>void): void;
-    /**
-     * Emitted when a remote peer attempts to call you.
-     * @param event Event name
-     * @param cb Callback Function
-     */
-    on(event: 'call', cb: (mediaConnection: Peer.MediaConnection)=>void): void;
-    /**
-     * Emitted when the peer is destroyed and can no longer accept or create any new connections.
-     * @param event Event name
-     * @param cb Callback Function
-     */
-    on(event: 'close', cb: ()=>void): void;
-    /**
-     * Emitted when the peer is disconnected from the signalling server
-     * @param event Event name
-     * @param cb Callback Function
-     */
-    on(event: 'disconnected', cb: ()=>void): void;
-    /**
-     * Errors on the peer are almost always fatal and will destroy the peer.
-     * @param event Event name
-     * @param cb Callback Function
-     */
-    on(event: 'error', cb: (err: any)=>void): void;
-    /**
-     * Remove event listeners.(EventEmitter3)
-     * @param {String} event The event we want to remove.
-     * @param {Function} fn The listener that we need to find.
-     * @param {Boolean} once Only remove once listeners.
-     */
-    off(event: string, fn: Function, once?: boolean): void;
     /**
      * Close the connection to the server, leaving all existing data and media connections intact.
      */
@@ -146,15 +104,12 @@ declare namespace Peer {
         reliable?: boolean;
     }
 
-    interface DataConnection{
+    class DataConnection extends EventEmitter<'open' | 'close', {
+        data: any
+        error: Error
+    }> {
         send(data: any): void;
         close(): void;
-        on(event: string, cb: ()=>void): void;
-        on(event: 'data', cb: (data: any)=>void): void;
-        on(event: 'open', cb: ()=>void): void;
-        on(event: 'close', cb: ()=>void): void;
-        on(event: 'error', cb: (err: any)=>void): void;
-        off(event: string, fn: Function, once?: boolean): void;
         dataChannel: RTCDataChannel;
         label: string;
         metadata: any;
@@ -165,7 +120,6 @@ declare namespace Peer {
         serialization: string;
         type: string;
         buffSize: number;
-        removeAllListeners: () => void;
         id: dcID;
     }
 
