@@ -149,8 +149,3 @@ declare namespace Peer {
         supports: utilSupportsObj;
     }
 }
-
-// PeerJS Errors often add a type member
-interface Error {
-    type?: string;
-}
